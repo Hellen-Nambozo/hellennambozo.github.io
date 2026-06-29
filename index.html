@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============================================================
+       PAGE TITLE
+       Change "Obidi | Data Analyst" to your own name and title.
+       This appears on the browser tab.
+  ============================================================ -->
+  <title>Obidi | Data Analyst — Excel · SQL · Power BI · Stata · SPSS</title>
+
+  <!-- Google Fonts — Source Sans 3 + Source Serif 4 + Fira Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       COLOUR TOKENS
+       Accent colour: #5ed9ac (mint-green)
+       To change the accent colour, replace every occurrence of
+       #5ed9ac below with your chosen hex code.
+    ============================================================ */
+    :root {
+      --accent:      #5ed9ac;
+      --accent-dark: #3bbb8d;
+      --ink:         #1a1a2e;
+      --ink-soft:    #4a4a6a;
+      --ink-muted:   #8888aa;
+      --surface:     #ffffff;
+      --surface-2:   #f5f6fa;
+      --sidebar-w:   260px;
+      --header-h:    72px;
+      --font-sans:   'Source Sans 3', sans-serif;
+      --font-serif:  'Source Serif 4', serif;
+      --font-mono:   'Fira Mono', monospace;
+    }
+
+    /* ---- RESET ---- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--surface);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ============================================================
+       LAYOUT SHELL
+       Fixed sidebar on the left, fixed header on the top-right,
+       main content scrolls independently.
+    ============================================================ */
+
+    /* ---- SIDEBAR ---- */
+    #sidebar {
+      position: fixed;
+      top: 0; left: 0;
+      width: var(--sidebar-w);
+      height: 100vh;
+      background: var(--ink);
+      display: flex;
+      flex-direction: column;
+      padding: 2.5rem 1.75rem;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .sidebar-logo {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--surface);
+      letter-spacing: -0.01em;
+      margin-bottom: 0.25rem;
+    }
+
+    /* ============================================================
+       SIDEBAR NAME / TITLE
+       Change the text inside .sidebar-logo and .sidebar-role
+       to reflect your own name and job title.
+    ============================================================ -->
+    */
+    .sidebar-role {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 3rem;
+    }
+
+    /* ---- NAV LINKS ---- */
+    nav { flex: 1; }
+    nav ul { list-style: none; }
+    nav ul li { margin-bottom: 0.25rem; }
+    nav ul li a {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.65);
+      transition: background 0.18s, color 0.18s;
+    }
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: rgba(94,217,172,0.12);
+      color: var(--accent);
+    }
+    nav ul li a .nav-icon {
+      font-size: 1rem;
+      width: 1.1rem;
+      text-align: center;
+    }
+
+    /* ---- SIDEBAR SOCIAL ICONS ---- */
+    .sidebar-social {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .sidebar-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.55);
+      font-size: 0.85rem;
+      transition: background 0.18s, color 0.18s;
+    }
+    .sidebar-social a:hover {
+      background: var(--accent);
+      color: var(--ink);
+    }
+
+    /* ---- TOP HEADER BAR ---- */
+    #topbar {
+      position: fixed;
+      top: 0;
+      left: var(--sidebar-w);
+      right: 0;
+      height: var(--header-h);
+      background: var(--surface);
+      border-bottom: 1px solid #e8e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      z-index: 90;
+    }
+    .topbar-tagline {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.06em;
+    }
+    .topbar-tagline span {
+      color: var(--accent-dark);
+      font-weight: 500;
+    }
+
+    /* ============================================================
+       PROFILE PHOTO — TOP RIGHT CORNER
+       Replace the placeholder below with a real <img> tag:
+
+         <img src="images/your-photo.jpg" alt="Your Name" />
+
+       Put your photo in the /images/ folder and use that filename.
+       Recommended size: at least 120×120 px, square crop.
+    ============================================================ */
+    .topbar-photo {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2.5px solid var(--accent);
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    /* Uncomment and use the line below when you add your photo:
+       .topbar-photo img { width:100%; height:100%; object-fit:cover; }
+    */
+
+    /* ---- MAIN CONTENT AREA ---- */
+    #main {
+      margin-left: var(--sidebar-w);
+      margin-top: var(--header-h);
+      min-height: calc(100vh - var(--header-h));
+    }
+
+    /* ---- SHARED SECTION STYLES ---- */
+    .section {
+      padding: 5rem 3rem 4rem;
+      border-bottom: 1px solid #e8e8f0;
+    }
+    .section:last-child { border-bottom: none; }
+
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--accent-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1.18;
+      color: var(--ink);
+      margin-bottom: 2rem;
+    }
+
+    /* ============================================================
+       HERO / ABOUT SECTION
+    ============================================================ */
+    #about { background: var(--surface); }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .hero-name {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .hero-name em {
+      font-style: normal;
+      color: var(--accent-dark);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-bio {
+      font-size: 1.05rem;
+      color: var(--ink-soft);
+      line-height: 1.8;
+      max-width: 58ch;
+      margin-bottom: 2rem;
+    }
+
+    /* ---- SKILL TAGS ---- */
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .skill-tag {
+      padding: 0.3rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: rgba(94,217,172,0.12);
+      color: var(--accent-dark);
+      border: 1px solid rgba(94,217,172,0.3);
+    }
+
+    /* ---- CTA BUTTON ---- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s;
+      border: 2px solid transparent;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--ink);
+    }
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(94,217,172,0.35);
+    }
+    .btn-outline {
+      background: transparent;
+      border-color: var(--ink-muted);
+      color: var(--ink-soft);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent-dark);
+    }
+
+    /* ---- ABOUT CARD (right column) ---- */
+    .about-card {
+      background: var(--surface-2);
+      border-radius: 14px;
+      padding: 1.75rem;
+      border: 1px solid #e8e8f0;
+    }
+    .about-card-photo {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #dde0ef;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+
+    /* ============================================================
+       ABOUT CARD PROFILE PHOTO (large)
+       Replace the emoji 👤 with an <img> tag when you have a photo:
+
+         <img src="images/your-photo.jpg" alt="Obidi" style="width:100%;height:100%;object-fit:cover;" />
+
+       The image goes inside the div with class "about-card-photo"
+       (search for that class further down in the HTML body).
+    ============================================================ */
+
+    .stat-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.83rem;
+      color: var(--ink-soft);
+    }
+    .stat-item .stat-icon { color: var(--accent-dark); font-size: 0.9rem; }
+
+    /* ============================================================
+       PROJECTS SECTION
+    ============================================================ */
+    #projects { background: var(--surface-2); }
+
+    /* ---- 3-column responsive card grid ---- */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* ---- PROJECT CARD ---- */
+    .project-card {
+      background: var(--surface);
+      border-radius: 12px;
+      border: 1px solid #e0e2ee;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(26,26,46,0.1);
+    }
+
+    /* ============================================================
+       PROJECT CARD IMAGE
+       Replace the placeholder background with a real image:
+
+         <img src="images/project1.jpg" alt="Project Title" />
+
+       The <img> tag goes inside the div with class "card-img".
+       Recommended image size: 600×340 px (landscape).
+       To add more project cards: copy everything from
+         <!-- PROJECT CARD START -->
+         to
+         <!-- PROJECT CARD END -->
+       and paste it right after, then update the content inside.
+    ============================================================ */
+    .card-img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d2d5e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .card-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(26,26,46,0.3));
+    }
+    .card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 1.4rem 1.4rem 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ============================================================
+       PROJECT CARD CATEGORY TAG
+       Change the text inside .card-tag to label the category,
+       e.g. "SQL" / "Power BI" / "Python" / "Excel"
+    ============================================================ */
+    .card-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-dark);
+      margin-bottom: 0.45rem;
+    }
+
+    /* ============================================================
+       PROJECT CARD TITLE
+       Change the text inside <h3 class="card-title"> to your
+       project's name.
+    ============================================================ -->
+    */
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    /* ============================================================
+       PROJECT CARD DESCRIPTION
+       Change the text inside <p class="card-desc"> to describe
+       what the project does and what tools/techniques you used.
+       Keep it to 2–3 sentences.
+    ============================================================ -->
+    */
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 1.2rem;
+    }
+
+    /* ============================================================
+       PROJECT CARD BUTTON
+       Change the href="#" on the <a class="btn btn-outline">
+       tag to the real URL of your project (GitHub, Tableau Public,
+       etc.), e.g. href="https://github.com/yourname/project"
+    ============================================================ -->
+    */
+    .card-footer {
+      padding: 0 1.4rem 1.25rem;
+    }
+
+    /* ============================================================
+       CONTACT SECTION
+    ============================================================ */
+    #contact { background: var(--surface); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .contact-intro {
+      font-size: 1.05rem;
+      color: var(--ink-soft);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-radius: 10px;
+      border: 1px solid #e0e2ee;
+      transition: border-color 0.18s, box-shadow 0.18s;
+    }
+    .contact-link:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px rgba(94,217,172,0.15);
+    }
+    .contact-link-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      background: rgba(94,217,172,0.1);
+      color: var(--accent-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .contact-link-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-muted);
+      font-family: var(--font-mono);
+      margin-bottom: 0.1rem;
+    }
+    .contact-link-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .availability-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(94,217,172,0.1);
+      border: 1px solid rgba(94,217,172,0.3);
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent-dark);
+    }
+    .availability-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      margin-left: 0; /* footer sits in main flow */
+      background: var(--ink);
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+    }
+
+    /* ============================================================
+       FOOTER COPYRIGHT
+       Update the name "Obidi" below to your own name.
+    ============================================================ */
+    footer span { color: var(--accent); }
+
+    /* ============================================================
+       RESPONSIVE BREAKPOINTS
+       The layout collapses from 3-col → 2-col → 1-col at smaller
+       widths. The sidebar hides on mobile (≤768 px).
+       You generally do not need to edit this section.
+    ============================================================ */
+    /* ============================================================
+       SKILLS SECTION
+    ============================================================ */
+    #skills { background: var(--surface); }
+
+    .skills-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem 4rem;
+    }
+
+    .skill-group-title {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .skill-bar-list { display: flex; flex-direction: column; gap: 1.1rem; }
+
+    .skill-bar-item {}
+    .skill-bar-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.4rem;
+    }
+    .skill-bar-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .skill-bar-level {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--ink-muted);
+    }
+    .skill-bar-track {
+      height: 6px;
+      border-radius: 99px;
+      background: #e8e8f0;
+      overflow: hidden;
+    }
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--accent-dark), var(--accent));
+      width: 0;
+      transition: width 1.1s cubic-bezier(.4,0,.2,1);
+    }
+
+    .use-case-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .use-case-card {
+      background: var(--surface-2);
+      border: 1px solid #e0e2ee;
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+    }
+    .use-case-icon { font-size: 1.3rem; margin-bottom: 0.4rem; }
+    .use-case-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+    .use-case-desc {
+      font-size: 0.76rem;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 1100px) {
+      .card-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-grid { grid-template-columns: 1fr; }
+      .about-card { max-width: 360px; }
+      .skills-layout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      #sidebar { display: none; }
+      #topbar { left: 0; padding: 0 1.25rem; }
+      #main { margin-left: 0; }
+      .section { padding: 3.5rem 1.5rem 3rem; }
+      .card-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 1.7rem; }
+      .use-case-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       SIDEBAR
+       Links here mirror the sections below.
+       If you rename a section, update both the nav link href
+       AND the section's id= attribute.
+  ============================================================ -->
+  <aside id="sidebar">
+
+    <!-- ============================================================
+         SIDEBAR NAME & ROLE
+         Change "Obidi" to your first name (or full name).
+         Change "Data Analyst" to your actual job title.
+    ============================================================ -->
+    <p class="sidebar-logo">Obidi</p>
+    <p class="sidebar-role">Data Analyst</p>
+
+    <nav>
+      <ul>
+        <li><a href="#about" class="active"><span class="nav-icon">◈</span> About</a></li>
+        <li><a href="#skills"><span class="nav-icon">◆</span> Skills</a></li>
+        <li><a href="#projects"><span class="nav-icon">◇</span> Projects</a></li>
+        <li><a href="#contact"><span class="nav-icon">◉</span> Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- ============================================================
+         SOCIAL ICONS IN SIDEBAR
+         Update each href to your real profile URL.
+         The icons below use Unicode characters as lightweight icons.
+         You can replace the emoji with SVG icons if you prefer.
+
+         Current links:
+           LinkedIn → update href to your LinkedIn URL
+           GitHub   → update href to your GitHub URL
+           Email    → update the mailto: address
+    ============================================================ -->
+    <div class="sidebar-social">
+
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/obidi-473362196/" target="_blank" rel="noopener" title="LinkedIn">
+        in
+      </a>
+
+      <!-- GitHub — replace # with your GitHub profile URL -->
+      <a href="#" target="_blank" rel="noopener" title="GitHub">
+        ⌥
+      </a>
+
+      <!-- Email — replace the address with your own -->
+      <a href="mailto:your@email.com" title="Email">
+        @
+      </a>
+
+    </div>
+  </aside>
+
+  <!-- ============================================================
+       TOP HEADER BAR
+  ============================================================ -->
+  <header id="topbar">
+    <p class="topbar-tagline">
+      Excel · SQL · Power BI · <span>Stata · SPSS</span>
+    </p>
+
+    <!-- ============================================================
+         HEADER PROFILE PHOTO (small circle, top-right)
+         When you have a photo, replace the 👤 emoji with:
+           <img src="images/your-photo.jpg" alt="Obidi" />
+         The class "topbar-photo" already handles the circle crop.
+    ============================================================ -->
+    <div class="topbar-photo">👤</div>
+  </header>
+
+  <!-- ============================================================
+       MAIN CONTENT
+  ============================================================ -->
+  <main id="main">
+
+    <!-- ===========================================================
+         SECTION 1 — ABOUT / HERO
+    =========================================================== -->
+    <section id="about" class="section">
+      <p class="section-eyebrow">Hello, I'm</p>
+
+      <div class="hero-grid">
+
+        <!-- Left column: text -->
+        <div>
+
+          <!-- ============================================================
+               YOUR NAME & SUBTITLE
+               Change "Obidi" to your full name.
+               Change the subtitle to match your specialisation.
+          ============================================================ -->
+          <h1 class="hero-name">
+            <em>Obidi</em> —<br>Data Analyst
+          </h1>
+          <p class="hero-subtitle">Excel · SQL · Power BI · Stata · SPSS</p>
+
+          <!-- ============================================================
+               BIO / ABOUT TEXT
+               Replace the paragraphs below with your own story.
+               Keep it concise — 3 to 5 sentences works well.
+          ============================================================ -->
+          <p class="hero-bio">
+            I'm a data analyst with hands-on experience turning raw data into clear, actionable
+            insights that help businesses and organisations make smarter decisions. I work across
+            the full analytics pipeline — from cleaning and structuring data to building
+            interactive dashboards and conducting rigorous statistical analysis.
+          </p>
+          <p class="hero-bio" style="margin-top:-0.75rem;">
+            My toolkit spans <strong>Excel</strong> for rapid analysis and reporting,
+            <strong>SQL</strong> for querying and managing relational databases,
+            <strong>Power BI</strong> for interactive dashboards, and
+            <strong>Stata &amp; SPSS</strong> for statistical modelling and research-grade
+            analysis. I'm open to data analyst roles, freelance projects and consulting work —
+            if you need someone who combines analytical rigour with a business mindset, let's talk.
+          </p>
+
+          <!-- ============================================================
+               SKILL TAGS
+               Add or remove tags to match your actual toolkit.
+               Each tag is a <span class="skill-tag"> element.
+          ============================================================ -->
+          <div class="skill-tags">
+            <span class="skill-tag">Microsoft Excel</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">Power BI</span>
+            <span class="skill-tag">Stata</span>
+            <span class="skill-tag">SPSS</span>
+            <span class="skill-tag">Data Cleaning</span>
+            <span class="skill-tag">Dashboards</span>
+            <span class="skill-tag">Statistical Analysis</span>
+            <span class="skill-tag">Data Storytelling</span>
+          </div>
+
+          <!-- ============================================================
+               CTA BUTTONS
+               "View My Work" scrolls to the Projects section.
+               "Get In Touch" scrolls to the Contact section.
+               You don't need to change these unless you rename sections.
+          ============================================================ -->
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <a href="#projects" class="btn btn-primary">View My Work ↓</a>
+            <a href="#contact" class="btn btn-outline">Get In Touch</a>
+          </div>
+
+        </div><!-- /left column -->
+
+        <!-- Right column: card with photo + quick stats -->
+        <div class="about-card">
+
+          <!-- ============================================================
+               LARGE PROFILE PHOTO (About card)
+               Replace the 👤 emoji with your photo:
+
+                 <img src="images/your-photo.jpg"
+                      alt="Obidi"
+                      style="width:100%;height:100%;object-fit:cover;" />
+
+               Place the image file in the images/ folder and use
+               that filename in the src attribute.
+          ============================================================ -->
+          <div class="about-card-photo">👤</div>
+
+          <!-- ============================================================
+               QUICK STATS / INFO ROWS
+               Update each line with your real details.
+               Add or remove rows as needed.
+          ============================================================ -->
+          <div class="stat-row">
+
+            <!-- Location -->
+            <div class="stat-item">
+              <span class="stat-icon">📍</span>
+              <!-- Change "Uganda" to your city, country -->
+              <span>Uganda</span>
+            </div>
+
+            <!-- Availability -->
+            <div class="stat-item">
+              <span class="stat-icon">✅</span>
+              <span>Open to new opportunities</span>
+            </div>
+
+            <!-- Languages / tools you're known for -->
+            <div class="stat-item">
+              <span class="stat-icon">🔧</span>
+              <span>Excel · SQL · Power BI · Stata · SPSS</span>
+            </div>
+
+            <!-- Type of work you're looking for -->
+            <div class="stat-item">
+              <span class="stat-icon">💼</span>
+              <span>Full-time · Freelance · Consulting</span>
+            </div>
+
+            <!-- LinkedIn shortcut -->
+            <div class="stat-item" style="margin-top:0.5rem;">
+              <span class="stat-icon">🔗</span>
+              <a href="https://www.linkedin.com/in/obidi-473362196/"
+                 target="_blank"
+                 rel="noopener"
+                 style="color:var(--accent-dark);font-weight:600;font-size:0.83rem;">
+                linkedin.com/in/obidi-473362196
+              </a>
+            </div>
+
+          </div>
+        </div><!-- /about-card -->
+
+      </div><!-- /hero-grid -->
+    </section>
+
+
+    <!-- ===========================================================
+         SECTION 2 — SKILLS
+    =========================================================== -->
+    <section id="skills" class="section">
+      <p class="section-eyebrow">What I work with</p>
+      <h2 class="section-title">Tools &amp; Skills</h2>
+
+      <div class="skills-layout">
+
+        <!-- LEFT: Proficiency bars -->
+        <div>
+          <p class="skill-group-title">Tool Proficiency</p>
+          <div class="skill-bar-list">
+
+            <!-- Excel -->
+            <div class="skill-bar-item">
+              <div class="skill-bar-meta">
+                <span class="skill-bar-name">Microsoft Excel</span>
+                <span class="skill-bar-level">Advanced</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="95"></div>
+              </div>
+            </div>
+
+            <!-- SQL -->
+            <div class="skill-bar-item">
+              <div class="skill-bar-meta">
+                <span class="skill-bar-name">SQL</span>
+                <span class="skill-bar-level">Advanced</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="90"></div>
+              </div>
+            </div>
+
+            <!-- Power BI -->
+            <div class="skill-bar-item">
+              <div class="skill-bar-meta">
+                <span class="skill-bar-name">Power BI</span>
+                <span class="skill-bar-level">Proficient</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="85"></div>
+              </div>
+            </div>
+
+            <!-- Stata -->
+            <div class="skill-bar-item">
+              <div class="skill-bar-meta">
+                <span class="skill-bar-name">Stata</span>
+                <span class="skill-bar-level">Proficient</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="82"></div>
+              </div>
+            </div>
+
+            <!-- SPSS -->
+            <div class="skill-bar-item">
+              <div class="skill-bar-meta">
+                <span class="skill-bar-name">SPSS</span>
+                <span class="skill-bar-level">Proficient</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill" data-width="80"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- RIGHT: What I can do for you -->
+        <div>
+          <p class="skill-group-title">What I Do</p>
+          <div class="use-case-grid">
+
+            <div class="use-case-card">
+              <div class="use-case-icon">📊</div>
+              <p class="use-case-title">Interactive Dashboards</p>
+              <p class="use-case-desc">Power BI reports that let stakeholders explore KPIs in real time.</p>
+            </div>
+
+            <div class="use-case-card">
+              <div class="use-case-icon">🗃️</div>
+              <p class="use-case-title">Database Querying</p>
+              <p class="use-case-desc">SQL queries to extract, join and aggregate data from relational databases.</p>
+            </div>
+
+            <div class="use-case-card">
+              <div class="use-case-icon">📈</div>
+              <p class="use-case-title">Statistical Analysis</p>
+              <p class="use-case-desc">Regression, hypothesis testing and survey analysis using Stata &amp; SPSS.</p>
+            </div>
+
+            <div class="use-case-card">
+              <div class="use-case-icon">🧹</div>
+              <p class="use-case-title">Data Cleaning</p>
+              <p class="use-case-desc">Transforming messy, inconsistent data into analysis-ready datasets.</p>
+            </div>
+
+            <div class="use-case-card">
+              <div class="use-case-icon">📋</div>
+              <p class="use-case-title">Excel Modelling</p>
+              <p class="use-case-desc">PivotTables, dynamic charts, formulas and automated reporting workbooks.</p>
+            </div>
+
+            <div class="use-case-card">
+              <div class="use-case-icon">💡</div>
+              <p class="use-case-title">Business Insights</p>
+              <p class="use-case-desc">Translating data findings into clear recommendations decision-makers act on.</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div><!-- /skills-layout -->
+    </section>
+
+
+    <!-- ===========================================================
+         SECTION 3 — PROJECTS
+         Each card block is clearly marked START / END below.
+         To add a new project: copy a full card block (START → END)
+         and paste it right after the last </article> tag,
+         then update the content inside the new copy.
+    =========================================================== -->
+    <section id="projects" class="section">
+      <p class="section-eyebrow">Portfolio</p>
+      <h2 class="section-title">Selected Projects</h2>
+
+      <div class="card-grid">
+
+        <!-- ============================================================
+             PROJECT CARD START — Card 1
+             Duplicate this entire block to add more projects.
+        ============================================================ -->
+        <article class="project-card">
+
+          <!-- ============================================================
+               PROJECT IMAGE
+               Replace the 📊 emoji with a real image:
+
+                 <img src="images/project1.jpg" alt="Sales Dashboard" />
+
+               Recommended size: 600 × 340 px (landscape).
+               Place the image in the images/ folder.
+          ============================================================ -->
+          <div class="card-img">📊</div>
+
+          <div class="card-body">
+
+            <!-- ============================================================
+                 CARD CATEGORY TAG
+                 Change "Power BI" to the main tool used in this project.
+            ============================================================ -->
+            <p class="card-tag">Power BI</p>
+
+            <!-- ============================================================
+                 PROJECT TITLE
+                 Change to your project's name.
+            ============================================================ -->
+            <h3 class="card-title">Sales Performance Dashboard</h3>
+
+            <!-- ============================================================
+                 PROJECT DESCRIPTION
+                 2–3 sentences: what the project does, what problem it
+                 solves, and what tools or techniques you used.
+            ============================================================ -->
+            <p class="card-desc">
+              Built an interactive Power BI dashboard tracking monthly revenue, regional sales
+              performance and product trends for a retail client. Automated data refresh from
+              MySQL, cutting manual reporting time by 80%.
+            </p>
+
+          </div>
+
+          <div class="card-footer">
+            <!-- ============================================================
+                 PROJECT LINK
+                 Change href="#" to the real URL — GitHub repo,
+                 Tableau Public link, PDF report, etc.
+            ============================================================ -->
+            <a href="#" class="btn btn-outline" target="_blank" rel="noopener">
+              View Project →
+            </a>
+          </div>
+
+        </article>
+        <!-- PROJECT CARD END — Card 1 -->
+
+
+        <!-- ============================================================
+             PROJECT CARD START — Card 2
+             (Placeholder — update with your second project)
+        ============================================================ -->
+        <article class="project-card">
+          <div class="card-img">📉</div>
+          <div class="card-body">
+            <p class="card-tag">Stata · Survey Data</p>
+            <h3 class="card-title">Household Income & Poverty Analysis</h3>
+            <p class="card-desc">
+              Used Stata to analyse survey data from 3,000+ households, running regression
+              models to identify key drivers of income inequality and presenting findings
+              to a policy team as an actionable briefing report.
+            </p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-outline" target="_blank" rel="noopener">View Project →</a>
+          </div>
+        </article>
+        <!-- PROJECT CARD END — Card 2 -->
+
+
+        <!-- ============================================================
+             PROJECT CARD START — Card 3
+             (Placeholder — update with your third project)
+        ============================================================ -->
+        <article class="project-card">
+          <div class="card-img">🗃️</div>
+          <div class="card-body">
+            <p class="card-tag">SQL · Excel</p>
+            <h3 class="card-title">Customer Segmentation & Sales Reporting</h3>
+            <p class="card-desc">
+              Wrote SQL queries to extract and segment customer transaction data, then built
+              an Excel reporting workbook with PivotTables and dynamic charts that cut monthly
+              reporting time from 4 hours to under 30 minutes.
+            </p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-outline" target="_blank" rel="noopener">View Project →</a>
+          </div>
+        </article>
+        <!-- PROJECT CARD END — Card 3 -->
+
+        <!-- ============================================================
+             TO ADD MORE PROJECTS:
+             Copy the block between PROJECT CARD START and END above,
+             paste it here, and replace the content inside.
+             The grid will automatically reflow to accommodate new cards.
+        ============================================================ -->
+
+      </div><!-- /card-grid -->
+    </section>
+
+
+    <!-- ===========================================================
+         SECTION 3 — CONTACT
+    =========================================================== -->
+    <section id="contact" class="section">
+      <p class="section-eyebrow">Let's work together</p>
+      <h2 class="section-title">Get In Touch</h2>
+
+      <div class="contact-grid">
+
+        <!-- Left: intro + badge -->
+        <div>
+
+          <!-- ============================================================
+               CONTACT INTRO TEXT
+               Update this paragraph to reflect how you prefer to be
+               contacted and what kind of work you're available for.
+          ============================================================ -->
+          <p class="contact-intro">
+            I'm currently open to data analyst roles, freelance engagements, and consulting
+            projects. Whether you have a data problem to solve, a dashboard to build, or just
+            want to connect — I'd love to hear from you.
+          </p>
+
+          <div class="availability-badge">
+            <span class="availability-dot"></span>
+            Available for new projects
+          </div>
+
+        </div>
+
+        <!-- Right: contact links -->
+        <div class="contact-links">
+
+          <!-- ============================================================
+               EMAIL CONTACT LINK
+               Replace your@email.com with your actual email address
+               in both the href and the display text.
+          ============================================================ -->
+          <a href="mailto:your@email.com" class="contact-link">
+            <span class="contact-link-icon">✉</span>
+            <div>
+              <p class="contact-link-label">Email</p>
+              <!-- Change to your real email address -->
+              <p class="contact-link-value">your@email.com</p>
+            </div>
+          </a>
+
+          <!-- ============================================================
+               LINKEDIN CONTACT LINK
+               Replace the href with your full LinkedIn profile URL.
+               Update the display text too if you want a different label.
+          ============================================================ -->
+          <a href="https://www.linkedin.com/in/obidi-473362196/"
+             target="_blank" rel="noopener" class="contact-link">
+            <span class="contact-link-icon">in</span>
+            <div>
+              <p class="contact-link-label">LinkedIn</p>
+              <p class="contact-link-value">linkedin.com/in/obidi-473362196</p>
+            </div>
+          </a>
+
+          <!-- ============================================================
+               LOCATION
+               Change "Uganda" to your city/country.
+               This is display-only (not a link).
+          ============================================================ -->
+          <div class="contact-link" style="cursor:default;">
+            <span class="contact-link-icon">📍</span>
+            <div>
+              <p class="contact-link-label">Location</p>
+              <!-- Update to your city and country -->
+              <p class="contact-link-value">Uganda</p>
+            </div>
+          </div>
+
+        </div><!-- /contact-links -->
+
+      </div><!-- /contact-grid -->
+    </section>
+
+    <!-- ============================================================
+         FOOTER
+         Update the year and your name as needed.
+    ============================================================ -->
+    <footer>
+      <!-- Change "Obidi" to your name -->
+      &copy; 2025 <span>Obidi</span>. All rights reserved. &nbsp;|&nbsp;
+      Data Analyst &middot; Excel &middot; SQL &middot; Power BI &middot; Stata &middot; SPSS
+    </footer>
+
+  </main><!-- /#main -->
+
+  <!-- ============================================================
+       ACTIVE NAV HIGHLIGHT SCRIPT
+       This automatically highlights the correct sidebar link
+       as the user scrolls through sections.
+       You do not need to edit this unless you add new sections.
+  ============================================================ -->
+  <script>
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('#sidebar nav a');
+
+    function updateActive() {
+      let current = '';
+      sections.forEach(sec => {
+        const top = sec.getBoundingClientRect().top;
+        if (top <= 120) current = sec.id;
+      });
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+      });
+    }
+
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+
+    // Animate skill bars when the Skills section scrolls into view
+    const fills = document.querySelectorAll('.skill-bar-fill');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          fills.forEach(fill => {
+            fill.style.width = fill.dataset.width + '%';
+          });
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+
+    const skillsSection = document.getElementById('skills');
+    if (skillsSection) observer.observe(skillsSection);
+  </script>
+
+</body>
+</html>
