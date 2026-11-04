@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hellen Nambozo | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <a href="#home" class="logo">HN</a>
+        <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="nav-links">
+            <a href="#about" class="nav-pill">About Me</a>
+            <a href="#skills" class="nav-pill">Skillset</a>
+            <a href="#projects" class="nav-pill">Projects</a>
+            <a href="#contact" class="nav-pill">Contact</a>
+            <a href="mailto:nambozoh5@gmail.com" class="cta-nav">Say Hi! 👋</a>
+        </nav>
+    </header>
+
+    <!-- Hero / Intro Section -->
+    <main class="hero-container" id="home">
+        <div class="hero-text">
+            <h1>I'm Hellen Nambozo,<br>a <span class="highlight" id="typed">Statistician & Data Analyst</span>.</h1>
+            <p class="location">📍 Based in Uganda</p>
+            <p class="description">
+                Specialized in transforming raw data into actionable insights using advanced statistical methods and modern business intelligence tools.
+            </p>
+            <div class="buttons">
+                <a href="#projects" class="btn-primary">Discover my work</a>
+                <a href="mailto:nambozoh5@gmail.com" class="btn-secondary">Contact Me</a>
+            </div>
+            <div class="socials">
+                <a href="https://www.linkedin.com/in/YOUR-LINKEDIN-USERNAME" target="_blank" rel="noopener" class="social-chip">LinkedIn</a>
+                <a href="mailto:nambozoh5@gmail.com" class="social-chip">Email</a>
+            </div>
+        </div>
+
+        <div class="hero-image-wrapper">
+            <div class="about-card-photo">
+                <img src="Images/Hellen.png" alt="Hellen Nambozo" />
+            </div>
+            <div class="dots-accent left-dots"></div>
+            <div class="dots-accent right-dots"></div>
+            <span class="float-tag tag-one">📊 Data</span>
+            <span class="float-tag tag-two">📈 Stats</span>
+        </div>
+    </main>
+
+    <!-- About -->
+    <section class="section" id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+            <p>
+                I turn messy numbers into clear stories. With a background in statistics, I clean, analyse and visualise data so that teams can make confident decisions.
+                I enjoy survey analysis, forecasting and building dashboards that people actually enjoy opening.
+            </p>
+            <div class="stat-row">
+                <div class="stat"><strong data-count="10">0</strong><span>Projects done</span></div>
+                <div class="stat"><strong data-count="5">0</strong><span>Tools mastered</span></div>
+                <div class="stat"><strong data-count="100">0</strong><span>% curiosity</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="section alt" id="skills">
+        <h2 class="section-title">Skillset</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>Statistics</h3>
+                <div class="bar"><span>Regression & Modelling</span><div class="track"><i data-level="90"></i></div></div>
+                <div class="bar"><span>Hypothesis Testing</span><div class="track"><i data-level="88"></i></div></div>
+                <div class="bar"><span>Time Series & Forecasting</span><div class="track"><i data-level="75"></i></div></div>
+            </div>
+            <div class="skill-card">
+                <h3>Tools</h3>
+                <div class="bar"><span>Excel</span><div class="track"><i data-level="95"></i></div></div>
+                <div class="bar"><span>R / Python</span><div class="track"><i data-level="80"></i></div></div>
+                <div class="bar"><span>Power BI / Tableau</span><div class="track"><i data-level="85"></i></div></div>
+                <div class="bar"><span>SQL</span><div class="track"><i data-level="78"></i></div></div>
+            </div>
+            <div class="skill-card">
+                <h3>Soft skills</h3>
+                <div class="chips">
+                    <span class="chip">Storytelling</span>
+                    <span class="chip">Problem solving</span>
+                    <span class="chip">Attention to detail</span>
+                    <span class="chip">Teamwork</span>
+                    <span class="chip">Communication</span>
+                    <span class="chip">Report writing</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="section" id="projects">
+        <h2 class="section-title">Projects</h2>
+        <div class="filters">
+            <button class="filter active" data-filter="all">All</button>
+            <button class="filter" data-filter="analysis">Analysis</button>
+            <button class="filter" data-filter="dashboard">Dashboards</button>
+            <button class="filter" data-filter="modelling">Modelling</button>
+        </div>
+
+        <div class="project-grid">
+            <article class="project-card" data-category="analysis"
+                data-title="Household Survey Analysis"
+                data-desc="Cleaned and analysed a household survey to uncover income and education patterns. Used weighted statistics and cross-tabulations to produce clear summary tables for decision makers."
+                data-tools="R, Excel">
+                <div class="project-emoji">🏠</div>
+                <h3>Household Survey Analysis</h3>
+                <p>Patterns in income and education from survey data.</p>
+                <div class="chips"><span class="chip">R</span><span class="chip">Excel</span></div>
+                <button class="more">View details</button>
+            </article>
+
+            <article class="project-card" data-category="dashboard"
+                data-title="Sales Performance Dashboard"
+                data-desc="Built an interactive dashboard tracking monthly sales, top products and regional performance, with filters so managers can explore the numbers themselves."
+                data-tools="Power BI, SQL">
+                <div class="project-emoji">📊</div>
+                <h3>Sales Performance Dashboard</h3>
+                <p>Interactive view of sales by product and region.</p>
+                <div class="chips"><span class="chip">Power BI</span><span class="chip">SQL</span></div>
+                <button class="more">View details</button>
+            </article>
+
+            <article class="project-card" data-category="modelling"
+                data-title="Demand Forecasting Model"
+                data-desc="Developed a time series model to forecast monthly demand, compared ARIMA with exponential smoothing and selected the best model using error metrics."
+                data-tools="Python, ARIMA">
+                <div class="project-emoji">📈</div>
+                <h3>Demand Forecasting Model</h3>
+                <p>Forecasting monthly demand with time series methods.</p>
+                <div class="chips"><span class="chip">Python</span><span class="chip">ARIMA</span></div>
+                <button class="more">View details</button>
+            </article>
+
+            <article class="project-card" data-category="modelling"
+                data-title="Regression on Health Outcomes"
+                data-desc="Fitted multiple and logistic regression models to study factors linked to health outcomes, checking assumptions and reporting results in plain language."
+                data-tools="R, SPSS">
+                <div class="project-emoji">🩺</div>
+                <h3>Regression on Health Outcomes</h3>
+                <p>Which factors drive outcomes? A modelling study.</p>
+                <div class="chips"><span class="chip">R</span><span class="chip">SPSS</span></div>
+                <button class="more">View details</button>
+            </article>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section alt" id="contact">
+        <h2 class="section-title">Let's work together</h2>
+        <p class="contact-intro">Have data that needs a story? I'd love to hear from you.</p>
+        <div class="contact-cards">
+            <a class="contact-card" href="mailto:nambozoh5@gmail.com">
+                <span>✉️</span><strong>Email</strong><em>nambozoh5@gmail.com</em>
+            </a>
+            <a class="contact-card" href="https://www.linkedin.com/in/YOUR-LINKEDIN-USERNAME" target="_blank" rel="noopener">
+                <span>💼</span><strong>LinkedIn</strong><em>Connect with me</em>
+            </a>
+            <a class="contact-card" href="tel:+256000000000">
+                <span>📞</span><strong>Phone</strong><em>+256 000 000 000</em>
+            </a>
+        </div>
+        <button class="copy-btn" id="copy-email">Copy my email</button>
+    </section>
+
+    <footer class="footer">© <span id="year"></span> Hellen Nambozo · Made with 💜 in Uganda</footer>
+
+    <!-- Project modal -->
+    <div class="modal" id="modal" aria-hidden="true">
+        <div class="modal-box" role="dialog" aria-modal="true">
+            <button class="modal-close" aria-label="Close">×</button>
+            <h3 id="modal-title"></h3>
+            <p id="modal-desc"></p>
+            <p class="modal-tools"><strong>Tools:</strong> <span id="modal-tools"></span></p>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Email copied!</div>
+    <script src="script.js"></script>
+</body>
+</html>
