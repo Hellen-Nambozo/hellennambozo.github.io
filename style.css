@@ -1,0 +1,438 @@
+/* ============================================================
+   COLOUR TOKENS & SITE VARIABLES
+============================================================ */
+:root {
+  --accent:      #5ed9ac;
+  --accent-dark: #3bbb8d;
+  --ink:         #1a1a2e;
+  --ink-soft:    #4a4a6a;
+  --ink-muted:   #8888aa;
+  --surface:     #ffffff;
+  --surface-2:   #f5f6fa;
+  --sidebar-w:   260px;
+  --header-h:    72px;
+  --font-sans:   'Source Sans 3', sans-serif;
+  --font-serif:  'Source Serif 4', serif;
+  --font-mono:   'Fira Mono', monospace;
+}
+
+/* ---- LAYOUT RESET CONVENTIONS ---- */
+*, *::before, *::after { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+html { 
+  scroll-behavior: smooth; 
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--surface);
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+a { 
+  text-decoration: none; 
+  color: inherit;
+}
+
+img { 
+  display: block; 
+  max-width: 100%; 
+}
+
+/* ============================================================
+   LAYOUT COMPONENTS (SIDEBAR & TOPBAR)
+============================================================ */
+
+#sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--ink);
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem 1.75rem;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.sidebar-logo {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--surface);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.25rem;
+}
+
+.sidebar-role {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 3rem;
+}
+
+nav { 
+  flex: 1; 
+}
+
+nav ul { 
+  list-style: none; 
+}
+
+nav ul li { 
+  margin-bottom: 0.25rem; 
+}
+
+nav ul li a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.65);
+  transition: background 0.18s, color 0.18s;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  background: rgba(94,217,172,0.12);
+  color: var(--accent);
+}
+
+nav ul li a .nav-icon {
+  font-size: 1rem;
+  width: 1.1rem;
+  text-align: center;
+}
+
+.sidebar-social {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.sidebar-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.55);
+  font-size: 0.85rem;
+  transition: background 0.18s, color 0.18s;
+}
+
+.sidebar-social a:hover {
+  background: var(--accent);
+  color: var(--ink);
+}
+
+#topbar {
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-w);
+  right: 0;
+  height: var(--header-h);
+  background: var(--surface);
+  border-bottom: 1px solid #e8e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  z-index: 90;
+}
+
+.topbar-tagline {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.06em;
+}
+
+.topbar-tagline span {
+  color: var(--accent-dark);
+  font-weight: 500;
+}
+
+.topbar-photo {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2.5px solid var(--accent);
+  background: var(--surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.topbar-photo img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+}
+
+/* ============================================================
+   MAIN CONTENT SHELL & LAYOUT SECTIONS
+============================================================ */
+#main {
+  margin-left: var(--sidebar-w);
+  margin-top: var(--header-h);
+  min-height: calc(100vh - var(--header-h));
+}
+
+.section {
+  padding: 5rem 3rem 4rem;
+  border-bottom: 1px solid #e8e8f0;
+}
+
+.section:last-child { 
+  border-bottom: none; 
+}
+
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--accent-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.6rem;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.18;
+  color: var(--ink);
+  margin-bottom: 2rem;
+}
+
+/* ---- BIOGRAPHY GRID ---- */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 3rem;
+  align-items: start;
+}
+
+.hero-name {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.hero-name em {
+  font-style: normal;
+  color: var(--accent-dark);
+}
+
+.hero-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.hero-bio {
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  max-width: 58ch;
+  margin-bottom: 2rem;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.skill-tag {
+  padding: 0.3rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: rgba(94,217,172,0.12);
+  color: var(--accent-dark);
+}
+
+/* ---- BUTTONS ---- */
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--ink);
+}
+
+.btn-primary:hover {
+  background: var(--accent-dark);
+  box-shadow: 0 4px 12px rgba(94,217,172,0.25);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  border: 1px solid #e1e2e8;
+}
+
+.btn-secondary:hover {
+  background: #ededf5;
+  color: var(--ink);
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+
+.about-card-photo {
+  width: 100%;
+  height: 380px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(26,26,46,0.06);
+  background: var(--surface-2);
+}
+
+.about-card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================================================
+   PROJECTS MATRIX CARD GRID
+============================================================ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid #e8e8f0;
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 12px 24px rgba(26,26,46,0.04);
+}
+
+.project-icon {
+  font-size: 1.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.project-name {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.project-description {
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex: 1; /* Pushes technical tags to the absolute bottom */
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.project-tech span {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.project-link {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+  transition: color 0.15s;
+}
+
+.project-link:hover {
+  color: var(--ink);
+}
+
+/* ============================================================
+   RESPONSIVE VIEWPORT BREAKPOINTS
+============================================================ */
+@media (max-width: 992px) {
+  #sidebar { width: 72px; padding: 2rem 0.5rem; align-items: center; }
+  .sidebar-logo, .sidebar-role { display: none; }
+  nav ul li a { justify-content: center; padding: 0.75rem; }
+  nav ul li a span:not(.nav-icon) { display: none; }
+  #topbar { left: 72px; }
+  #main { margin-left: 72px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about-card-photo { height: 320px; max-width: 320px; }
+}
+
+@media (max-width: 576px) {
+  #topbar { padding: 0 1.25rem; }
+  .topbar-tagline { display: none; }
+  .section { padding: 4rem 1.5rem 3rem; }
+  .hero-actions { flex-direction: column; }
+}
