@@ -14,12 +14,12 @@ let w = 0, c = words[0].length, deleting = true;
 function type() {
     const word = words[w];
     typed.textContent = word.slice(0, c);
-    if (!deleting && c === word.length) { deleting = true; return setTimeout(type, 2000); }
+    if (!deleting && c === word.length) { deleting = true; return setTimeout(type, 5000); }
     if (deleting && c === 0) { deleting = false; w = (w + 1) % words.length; }
     c += deleting ? -1 : 1;
     setTimeout(type, deleting ? 40 : 80);
 }
-if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setTimeout(type, 2000); }
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setTimeout(type, 5000); }
 
 // Highlight active menu pill while scrolling
 const pills = document.querySelectorAll('.nav-pill');
