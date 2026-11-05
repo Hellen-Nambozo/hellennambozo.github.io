@@ -10,16 +10,16 @@ navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => na
 // Typing effect for the title
 const typed = document.getElementById('typed');
 const words = ['Statistician & Data Analyst', 'Data Storyteller', 'Insight Finder'];
-let w = 0, c = 0, deleting = false;
+let w = 0, c = words[0].length, deleting = true;
 function type() {
     const word = words[w];
-    typed.firstChild.textContent = word.slice(0, c);
-    if (!deleting && c === word.length) { deleting = true; return setTimeout(type, 1800); }
+    typed.textContent = word.slice(0, c);
+    if (!deleting && c === word.length) { deleting = true; return setTimeout(type, 2000); }
     if (deleting && c === 0) { deleting = false; w = (w + 1) % words.length; }
     c += deleting ? -1 : 1;
     setTimeout(type, deleting ? 40 : 80);
 }
-if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) { typed.textContent = ''; type(); }
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setTimeout(type, 2000); }
 
 // Highlight active menu pill while scrolling
 const pills = document.querySelectorAll('.nav-pill');
